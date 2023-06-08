@@ -4,11 +4,18 @@ import { List } from './ContactList.styled';
 
 export const ContactList = ({ contacts, deleteContact }) => {
   return (
-    <List>
-      <ListItem contacts={contacts} deleteContact={deleteContact} />
-    </List>
-  );
-};
+      <List>
+        {contacts.map(({ id, name, number }) => (
+        <ListItem 
+        key={id}
+        id={id}
+        name={name}
+        number={number}
+        deleteContact={deleteContact} />
+      ))}
+      </List>
+    );
+  };
 
 ContactList.propTypes = {
   contacts: PropTypes.array.isRequired,

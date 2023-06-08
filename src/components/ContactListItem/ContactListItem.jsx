@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { Button, Item, Thumb } from './ContactListItem.styled';
 
-export const ListItem = ({ contacts, deleteContact }) => {
-  return contacts.map(({ id, name, number }) => (
+export const ListItem = ({ id, name, number, deleteContact }) => {
+  return (
     <Item key={id}>
       <Thumb>
         <p>{name}: </p>
@@ -12,16 +12,12 @@ export const ListItem = ({ contacts, deleteContact }) => {
         Delete
       </Button>
     </Item>
-  ));
+  );
 };
 
 ListItem.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };

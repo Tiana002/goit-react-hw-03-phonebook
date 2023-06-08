@@ -9,9 +9,11 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export class App extends Component {
   state = {
-    contacts: initialContacts,
+    contacts: [],
     filter: '',
   };
+  
+   
 
   addNewContacts = (newContact) => {
     const { contacts } = this.state;   
@@ -46,7 +48,26 @@ export class App extends Component {
     );
   };
  
+  componentDidMount() {
+    const savedContacts = localStorage.getItem('contacts');
+   
+    if (savedContacts !== null) {
+      // Если сохранили в LS уже что-то, пишем ЭТО в state
+      this.setState({ contacts: JSON.parse(savedContacts) });
+    } else {
+      // Если в LS ничего еще нет, пишем в state initialContacts
+      this.setState({ contacts: initialContacts });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
+    
     const { filter } = this.state;
 
     return (
